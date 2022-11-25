@@ -44,8 +44,11 @@ const check_word = word =>{
 
     if(guess_words[line] == undefined)return alert('Game Over Please Wait For The Next Day')
     if(guess_words[line].length < 5) {
-        alert('Word is not complete')
+
+        add_toggle(boxes[line],'incomplete')
+        remove_toggle(boxes[line],'incomplete',100)
         return;
+
     }
     if(word == undefined) check_word(lucky_word = random_word())
     let test = guess_words[line];
@@ -60,16 +63,18 @@ const check_letters = (word,test) =>{
 
         if(word.includes(test[i]) && word[i] === test[i]){
 
-            boxes[line].children[i].classList.toggle('correct')
+            add_toggle(boxes[line].children[i],'correct')
 
         }else if(word.includes(test[i])){
 
-            boxes[line].children[i].classList.toggle('warning')
+            add_toggle(boxes[line].children[i],'warning')
         
         }else{
-            boxes[line].children[i].classList.toggle('wrong')
+
+            add_toggle(boxes[line].children[i],'wrong')
+
         }
-       
+            
     }
 }
 
@@ -100,11 +105,8 @@ const toggel_button = letter =>{
     let curClicked = Array.from(all_keys).find(btn => btn.dataset.value == letter)
     
     if(curClicked == undefined) return false;
-    curClicked.classList.toggle('clicked')
-
-    setTimeout(()=>{
-        curClicked.classList.remove('clicked')
-    },100)
+    add_toggle(curClicked,'clicked')
+    remove_toggle(curClicked,'clicked',100)
 
     return curClicked.dataset.value
 }
@@ -115,6 +117,13 @@ const keyboard = letter =>{
 
 }
 
+const add_toggle = (item,clas) => item.classList.toggle(clas);
+
+const remove_toggle = (item,clas,sec) =>{
+    setTimeout(()=>{
+        item.classList.remove(clas)
+    },sec)
+}
 
 
 const keys = ev =>{
@@ -131,6 +140,8 @@ const keys = ev =>{
     }else if (char === 'Backspace'){
 
         backspace(guess_words[line])
+        toggel_button(char.toLowerCase())
+
         
     }else{
 
