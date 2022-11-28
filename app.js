@@ -12,10 +12,10 @@ const guess_words = [
 ]
 
 const words = [
-    // 'spoon',
-    // 'learn',
-    // 'house',
-    // 'laugh',
+    'spoon',
+    'learn',
+    'house',
+    'laugh',
     'dance',
 ]
 
