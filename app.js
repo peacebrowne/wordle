@@ -31,16 +31,15 @@ let box = 0;
 
 const display = letter =>{
 
-    if(guess_words[line].length === 5){
-        return alert('Please Click The Enter Button')
-    }
+    if(guess_words[line].length === 5) return
     guess_words[line].push(letter)
     boxes[line].children[box].textContent = guess_words[line][guess_words[line].length-1]
+    boxes[line].children[box].classList.toggle('border')
     box++
 
 }
 
-const check_word = word =>{
+const check_word = word => {
 
     if(guess_words[line] == undefined)return alert('Game Over Please Wait For The Next Day')
     if(guess_words[line].length < 5) {
@@ -58,7 +57,8 @@ const check_word = word =>{
 
 }
 
-const check_letters = (word,test) =>{
+const check_letters = (word,test) => {
+
     for (let i = 0; i < word.length; i++) {
 
         if(word.includes(test[i]) && word[i] === test[i]){
@@ -78,18 +78,25 @@ const check_letters = (word,test) =>{
     }
 }
 
+/**
+* 
+*  *  @param ev - transction message
+*/
 
 letters.addEventListener('click', ev => {
 
     let letter = ev.target;
 
     if(letter.className.includes('enter')){
+
         toggel_button(letter.dataset.value)
         check_word(lucky_word)
         
     }else if(letter.className.includes('delete')){
+
         toggel_button(letter.dataset.value)
         backspace(guess_words[line])
+
     }
     else if(letter.className.includes('letter')){
 
@@ -105,10 +112,13 @@ const toggel_button = letter =>{
     let curClicked = Array.from(all_keys).find(btn => btn.dataset.value == letter)
     
     if(curClicked == undefined) return false;
+
     add_toggle(curClicked,'clicked')
+
     remove_toggle(curClicked,'clicked',100)
 
     return curClicked.dataset.value
+
 }
 
 const keyboard = letter =>{
@@ -119,17 +129,18 @@ const keyboard = letter =>{
 
 const add_toggle = (item,clas) => item.classList.toggle(clas);
 
-const remove_toggle = (item,clas,sec) =>{
+const remove_toggle = (item,clas,sec) => {
+
     setTimeout(()=>{
+
         item.classList.remove(clas)
+
     },sec)
+
 }
 
 
 const keys = ev =>{
-
-    // let char = ev.char || ev.charCode || ev.which;
-    // let letter = String.fromCharCode(char)
 
     let char = ev.key;
     if(char === 'Enter'){
@@ -141,23 +152,23 @@ const keys = ev =>{
 
         backspace(guess_words[line])
         toggel_button(char.toLowerCase())
-
         
     }else{
 
         keyboard(char)
+
     }
 
 }
 
-const backspace = data =>{
+const backspace = data => {
     if(data.length <= 5 && data.length > 0){
         data.splice(-1)
+        boxes[line].children[box-1].classList.toggle('border')
         boxes[line].children[box-1].innerHTML = ''
         box--
     }
 }
-
 
 const body = document.body;
 body.addEventListener('keydown',keys)

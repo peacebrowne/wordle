@@ -85,6 +85,10 @@ button{
     background-color: #ced0d2;
 }
 
+.border{
+    border: 2px solid black !important;
+}
+
 .clicked{
     background-color: #0973f4;
     color: white;
@@ -162,7 +166,7 @@ button{
 }
 
 /* mobile view */
-@media only screen and (min-width: 320px) and (max-width: 425px){
+@media only screen and (max-width: 425px){
     
    .letters {
         width: 90%;
