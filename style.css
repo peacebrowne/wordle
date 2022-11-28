@@ -102,7 +102,15 @@ button{
     font-weight: 600;
     animation-name: vertical-rotate;
     animation-duration: 1.5s;
+    animation-delay: 0.5s;
     animation-timing-function:ease-in-out;
+}
+
+.correct-btn{
+    background-color: #6AAA64;
+    border: #6AAA64;
+    color: white;
+    font-weight: 600;
 }
 
 .warning{
@@ -112,7 +120,15 @@ button{
     font-weight: 600;
     animation-name: vertical-rotate;
     animation-duration: 1.5s;
+    animation-delay: 0.5s;
     animation-timing-function:ease-in-out;
+}
+
+.warning-btn{
+    background-color: #C9B458;
+    border: #C9B458;
+    color: white;
+    font-weight: 600;
 }
 
 .wrong{
@@ -122,7 +138,15 @@ button{
     font-weight: 600;
     animation-name: vertical-rotate;
     animation-duration: 1.5s;
+    animation-delay: 0.5s;
     animation-timing-function:ease-in-out;
+}
+
+.wrong-btn{
+    background-color: #787C7E;
+    border: #787C7E;
+    color: white;
+    font-weight: 600;
 }
 
 @keyframes vertical-rotate {
@@ -135,11 +159,7 @@ button{
 }
 
 .incomplete{
-    /* animation: incomplete 1s ease-out 1s forwards; */
-    animation-name: incomplete;
-    animation-duration: 0.1s;
-    animation-iteration-count: 3;
-    animation-timing-function: ease-in-out;
+    animation: incomplete 0.1s ease-in-out 3 ;
 }
 
 @keyframes incomplete {

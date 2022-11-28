@@ -1,5 +1,5 @@
 const letters = document.querySelector('.letters');
-const all_keys = document.querySelectorAll('.letter')
+const buttons = document.querySelectorAll('.letter')
 const boxes = document.querySelector('.boxes').children;
 
 const guess_words = [
@@ -12,10 +12,10 @@ const guess_words = [
 ]
 
 const words = [
-    'spoon',
-    'learn',
-    'house',
-    'laugh',
+    // 'spoon',
+    // 'learn',
+    // 'house',
+    // 'laugh',
     'dance',
 ]
 
@@ -86,21 +86,39 @@ const check_letters = (word,letters) => {
 
     for (let i = 0; i < word.length; i++) {
 
+        let curClicked = Array.from(buttons).find(btn => btn.dataset.value == letters[i])
+        let btn = btn_toggle(curClicked)
+
         if(word.includes(letters[i]) && word[i] === letters[i]){
 
+
+            if(btn != false) add_toggle(btn,'correct-btn')
             add_toggle(boxes[line].children[i],'correct')
+            add_toggle(boxes[line].children[i],'border')
 
         }else if(word.includes(letters[i])){
 
+
+            if(btn != false) add_toggle(btn,'warning-btn')
             add_toggle(boxes[line].children[i],'warning')
+            add_toggle(boxes[line].children[i],'border')
         
         }else{
 
+            if(btn != false) add_toggle(btn,'wrong-btn')
             add_toggle(boxes[line].children[i],'wrong')
+            add_toggle(boxes[line].children[i],'border')
 
         }
             
     }
+}
+
+let btn_class = ['correct-btn','warning-btn','wrong-btn']
+const btn_toggle = btn => {
+     let result = btn_class.some(val => btn.className.includes(val))
+     if(result) return false;
+     return btn
 }
 
 /**
@@ -146,8 +164,7 @@ letters.addEventListener('click', ev => {
 * */
 const toggel_button = letter =>{
 
-    let curClicked = Array.from(all_keys).find(btn => btn.dataset.value == letter)
-    
+    let curClicked = Array.from(buttons).find(btn => btn.dataset.value == letter)
     if(curClicked == undefined) return false;
 
     add_toggle(curClicked,'clicked')
