@@ -19,13 +19,22 @@ const words = [
     'dance',
 ]
 
-
+/**
+ * Generating random number
+ * * @return -random number from the length of words array.
+ * 
+ *  */
 const random_word = () =>{
     return words[Math.floor(Math.random() * words.length)]
 }
 
 let lucky_word = random_word()
 
+/**
+ * Display each letter user type in the boxes.
+ * @return or cancel the display funtion if the boxes on each line is full
+ * @param letter - keyboard character
+ * */
 let line = 0;
 let box = 0;
 
@@ -38,6 +47,15 @@ const display = letter =>{
     box++
 
 }
+
+
+/**
+ * checking each word the user guesses to know if guessed word is the same as the generated word
+ * of the day.
+ * @return Game over message if user guessed chance is over.
+ *         or cancel the check word funtion if the boxes on each line is full with letters.
+ * @param word - keyboard character
+ * */
 
 const check_word = word => {
 
@@ -57,15 +75,22 @@ const check_word = word => {
 
 }
 
-const check_letters = (word,test) => {
+/**
+ *  checking each letter the user type to know if it's apart of the generated word of the day
+ *  or apart but not in the right position or it's not apart at all.
+ *  @param word - keyboard character
+ *  @param letters - array of letters
+* */
+
+const check_letters = (word,letters) => {
 
     for (let i = 0; i < word.length; i++) {
 
-        if(word.includes(test[i]) && word[i] === test[i]){
+        if(word.includes(letters[i]) && word[i] === letters[i]){
 
             add_toggle(boxes[line].children[i],'correct')
 
-        }else if(word.includes(test[i])){
+        }else if(word.includes(letters[i])){
 
             add_toggle(boxes[line].children[i],'warning')
         
@@ -79,9 +104,12 @@ const check_letters = (word,test) => {
 }
 
 /**
-* 
-*  *  @param ev - transction message
-*/
+ *  checking if user clicked enter key or delete key or any letter keys
+ *  if "enter", checks if word is correct
+ *  else if "delete", delete a letter from the guessed word
+ *  else if "letter", display letter in a box.
+ *  @param ev - targeted keyboard character
+* */
 
 letters.addEventListener('click', ev => {
 
@@ -107,6 +135,15 @@ letters.addEventListener('click', ev => {
    
 })
 
+
+/**
+ *  Toggling each button clicked with a blue bgColor if button has a letter, enter or delete
+ *  else if "letter", display letter in a box.
+ *  @param letter - targeted keyboard character
+ *  @return false - if button is part of the three options else
+ *  @return letter - targeted key character
+ * 
+* */
 const toggel_button = letter =>{
 
     let curClicked = Array.from(all_keys).find(btn => btn.dataset.value == letter)
@@ -121,14 +158,33 @@ const toggel_button = letter =>{
 
 }
 
+/**
+ *  if button is valid display it else cancel funtion execution
+ *  @param letter - targeted keyboard character
+ * 
+* */
 const keyboard = letter =>{
 
     if(toggel_button(letter)) display(letter)
 
 }
 
+/**
+ *  Adding toggle event to each valid button
+ *  @param item - targeted keyboard character
+ *  @param clas - class => css style to add
+ * 
+* */
 const add_toggle = (item,clas) => item.classList.toggle(clas);
 
+
+/**
+ *  Removing toggle event on each valid button
+ *  @param item - targeted keyboard character
+ *  @param clas - class => css style to add
+ *  @param sec - delayed time before removing toggle
+ * 
+* */
 const remove_toggle = (item,clas,sec) => {
 
     setTimeout(()=>{
@@ -139,7 +195,13 @@ const remove_toggle = (item,clas,sec) => {
 
 }
 
-
+/**
+ *  Targeting each key user typed on keyboard
+ *  if key is part the three options
+ *  @validKeys - ("letter","enter" or "delete") 
+ *  @param item - targeted keyboard character
+ * 
+* */
 const keys = ev =>{
 
     let char = ev.key;
@@ -161,6 +223,11 @@ const keys = ev =>{
 
 }
 
+/**
+ *  Removing a letter from user guessed word
+ *  @param data - [array of boxes per line]
+ * 
+* */
 const backspace = data => {
     if(data.length <= 5 && data.length > 0){
         data.splice(-1)
@@ -170,5 +237,6 @@ const backspace = data => {
     }
 }
 
+// Adding keyboard event to document body to handle all keys pressed on keyboard.
 const body = document.body;
 body.addEventListener('keydown',keys)
