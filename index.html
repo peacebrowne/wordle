@@ -1,111 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Wordle</title>
-</head>
-<body>
-    
-    
-    <main>
-        <header>
-            <h1>Wordle</h1>
-        </header>
-        <section class="boxes">
-            <div class="box-item">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-            </div>
-            
-            <div class="box-item">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-            </div>
+  </head>
+  <body>
+    <section class="loader hide">
+      <div class="spinner"></div>
+      <div class="popup hide"></div>
+    </section>
+    <main class="">
+      <header>
+        <h1>Wordle</h1>
+      </header>
+      <section class="boxes">
+        <div class="box-item">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
 
-            <div class="box-item">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-            </div>
+        <div class="box-item">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
 
-            <div class="box-item">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-            </div>
+        <div class="box-item">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
 
-            <div class="box-item">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-            </div>
+        <div class="box-item">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
 
-            <div class="box-item">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-            </div>
+        <div class="box-item">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
 
-        </section>
+        <div class="box-item">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+      </section>
 
-        <section class="letters">
-            <div class="keys-item">
-                <button class="letter" data-value="q">Q</button>
-                <button class="letter" data-value="w">W</button>
-                <button class="letter" data-value="e">E</button>
-                <button class="letter" data-value="r">R</button>
-                <button class="letter" data-value="t">T</button>
-                <button class="letter" data-value="y">Y</button>
-                <button class="letter" data-value="u">U</button>
-                <button class="letter" data-value="i">I</button>
-                <button class="letter" data-value="o">O</button>
-                <button class="letter" data-value="p">P</button>
-            </div>
+      <section class="letters">
+        <div class="keys-item">
+          <button class="letter" data-value="q">Q</button>
+          <button class="letter" data-value="w">W</button>
+          <button class="letter" data-value="e">E</button>
+          <button class="letter" data-value="r">R</button>
+          <button class="letter" data-value="t">T</button>
+          <button class="letter" data-value="y">Y</button>
+          <button class="letter" data-value="u">U</button>
+          <button class="letter" data-value="i">I</button>
+          <button class="letter" data-value="o">O</button>
+          <button class="letter" data-value="p">P</button>
+        </div>
 
-            <div class="keys-item" id="center-line">
-                <button class="letter" data-value="a">A</button>
-                <button class="letter" data-value="s">S</button>
-                <button class="letter" data-value="d">D</button>
-                <button class="letter" data-value="f">F</button>
-                <button class="letter" data-value="g">G</button>
-                <button class="letter" data-value="h">H</button>
-                <button class="letter" data-value="j">J</button>
-                <button class="letter" data-value="k">K</button>
-                <button class="letter" data-value="l">L</button>
-            </div>
+        <div class="keys-item" id="center-line">
+          <button class="letter" data-value="a">A</button>
+          <button class="letter" data-value="s">S</button>
+          <button class="letter" data-value="d">D</button>
+          <button class="letter" data-value="f">F</button>
+          <button class="letter" data-value="g">G</button>
+          <button class="letter" data-value="h">H</button>
+          <button class="letter" data-value="j">J</button>
+          <button class="letter" data-value="k">K</button>
+          <button class="letter" data-value="l">L</button>
+        </div>
 
-            <div class="keys-item">
-                <button class="letter enter" data-value="enter">Enter</button>
-                <button class="letter" data-value="z">Z</button>
-                <button class="letter" data-value="x">X</button>
-                <button class="letter" data-value="c">C</button>
-                <button class="letter" data-value="v">V</button>
-                <button class="letter" data-value="b">B</button>
-                <button class="letter" data-value="n">N</button>
-                <button class="letter" data-value="m">M</button>
-                <button class="letter delete" data-value="backspace"><img src="./svg/delete.svg"></button>
-            </div>
-
-        </section>
+        <div class="keys-item">
+          <button class="letter enter" data-value="enter">Enter</button>
+          <button class="letter" data-value="z">Z</button>
+          <button class="letter" data-value="x">X</button>
+          <button class="letter" data-value="c">C</button>
+          <button class="letter" data-value="v">V</button>
+          <button class="letter" data-value="b">B</button>
+          <button class="letter" data-value="n">N</button>
+          <button class="letter" data-value="m">M</button>
+          <button class="letter delete" data-value="backspace">
+            <img src="./svg/delete.svg" />
+          </button>
+        </div>
+      </section>
     </main>
 
     <script src="./app.js"></script>
-</body>
+  </body>
 </html>
