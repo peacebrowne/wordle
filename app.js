@@ -1,17 +1,73 @@
 const letters = document.querySelector(".letters");
 const buttons = document.querySelectorAll(".letter");
 const boxes = document.querySelector(".boxes").children;
-let chances = 6;
 const loader = document.querySelector(".loader");
 
 const guess_words = [[], [], [], [], [], []];
 
-const words = ["spoon", "learn", "house", "laugh", "dance"];
+const words = [
+  "flaky",
+  "caper",
+  "quilt",
+  "rumba",
+  "fable",
+  "motto",
+  "gravy",
+  "funky",
+  "gloom",
+  "hurry",
+  "jolly",
+  "knack",
+  "laser",
+  "mimic",
+  "noble",
+  "punch",
+  "quack",
+  "roast",
+  "shaky",
+  "tulip",
+];
+
+const popup_values = {
+  win: {
+    icon: `   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-6 h-6"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M4.5 12.75l6 6 9-13.5"
+    />
+  </svg>`,
+    msg: "You Win!!",
+  },
+  nextDay: {
+    icon: `<svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-6 h-6"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>`,
+    msg: "Please come back tomorrow to play",
+  },
+};
 
 /**
  * Generating random number
  * * @return -random number from the length of words array.
- *
  *  */
 const random_word = () => {
   return words[Math.floor(Math.random() * words.length)];
@@ -45,20 +101,19 @@ const display = (letter) => {
  * */
 
 const check_word = (word) => {
-  if (guess_words[line] == undefined)
-    return alert("Game Over Please Wait For The Next Day");
+  if (!guess_words[line]) {
+    setTimeout(() => loader.classList.toggle("hide"), 1000);
+    return;
+  }
   if (guess_words[line].length < 5) {
     add_toggle(boxes[line], "incomplete");
     remove_toggle(boxes[line], "incomplete", 100);
     return;
   }
-  if (word == undefined) check_word((lucky_word = random_word()));
-  let test = guess_words[line];
-  check_letters(word, test);
+  if (!word) check_word((lucky_word = random_word()));
+  const letters = guess_words[line];
+  check_letters(word, letters);
   line++;
-  chances--;
-  storage(curDate());
-  curDate();
   box = 0;
 };
 
@@ -71,30 +126,32 @@ const check_word = (word) => {
 
 const check_letters = (word, letters) => {
   for (let i = 0; i < word.length; i++) {
-    let curClicked = Array.from(buttons).find(
+    const curClicked = Array.from(buttons).find(
       (btn) => btn.dataset.value == letters[i]
     );
-    let btn = btn_toggle(curClicked);
+    const button = btn_toggle(curClicked);
 
     if (word.includes(letters[i]) && word[i] === letters[i]) {
-      if (btn != false) add_toggle(btn, "correct-btn");
+      if (button != false) add_toggle(button, "correct-btn");
       add_toggle(boxes[line].children[i], "correct");
       add_toggle(boxes[line].children[i], "border");
     } else if (word.includes(letters[i])) {
-      if (btn != false) add_toggle(btn, "warning-btn");
+      if (button != false) add_toggle(button, "warning-btn");
       add_toggle(boxes[line].children[i], "warning");
       add_toggle(boxes[line].children[i], "border");
     } else {
-      if (btn != false) add_toggle(btn, "wrong-btn");
+      if (button != false) add_toggle(button, "wrong-btn");
       add_toggle(boxes[line].children[i], "wrong");
       add_toggle(boxes[line].children[i], "border");
     }
   }
+
+  gameOver(word, letters);
 };
 
-let btn_class = ["correct-btn", "warning-btn", "wrong-btn"];
+const btn_class = ["correct-btn", "warning-btn", "wrong-btn"];
 const btn_toggle = (btn) => {
-  let result = btn_class.some((val) => btn.className.includes(val));
+  const result = btn_class.some((val) => btn.className.includes(val));
   if (result) return false;
   return btn;
 };
@@ -106,8 +163,8 @@ const btn_toggle = (btn) => {
  *  else if "letter", display letter in a box.
  *  @param ev - targeted keyboard character
  * */
-letters.addEventListener("click", (ev) => {
-  let letter = ev.target;
+letters.addEventListener("click", (event) => {
+  const letter = event.target;
 
   if (letter.className.includes("enter")) {
     toggel_button(letter.dataset.value);
@@ -124,38 +181,32 @@ letters.addEventListener("click", (ev) => {
 /**
  *  Toggling each button clicked with a blue bgColor if button has a letter, enter or delete
  *  else if "letter", display letter in a box.
- *  @param letter - targeted keyboard character
- *  @return false - if button is part of the three options else
- *  @return letter - targeted key character
- *
+ *  @param {letter} - targeted keyboard character
+ *  @returns {false} - if button is part of the three options else
+ *  @return {letter} - targeted key character
  * */
 const toggel_button = (letter) => {
-  let curClicked = Array.from(buttons).find(
+  const targetEl = Array.from(buttons).find(
     (btn) => btn.dataset.value == letter
   );
-  if (curClicked == undefined) return false;
 
-  add_toggle(curClicked, "clicked");
+  if (targetEl == undefined) return false;
 
-  remove_toggle(curClicked, "clicked", 100);
-
-  return curClicked.dataset.value;
+  add_toggle(targetEl, "clicked");
+  remove_toggle(targetEl, "clicked", 100);
+  return targetEl.dataset.value;
 };
 
 /**
  *  if button is valid display it else cancel funtion execution
  *  @param letter - targeted keyboard character
- *
  * */
-const keyboard = (letter) => {
-  if (toggel_button(letter)) display(letter);
-};
+const keyboard = (letter) => (toggel_button(letter) ? display(letter) : "");
 
 /**
  *  Adding toggle event to each valid button
  *  @param item - targeted keyboard character
  *  @param clas - class => css style to add
- *
  * */
 const add_toggle = (item, clas) => item.classList.toggle(clas);
 
@@ -164,7 +215,6 @@ const add_toggle = (item, clas) => item.classList.toggle(clas);
  *  @param item - targeted keyboard character
  *  @param clas - class => css style to add
  *  @param sec - delayed time before removing toggle
- *
  * */
 const remove_toggle = (item, clas, sec) => {
   setTimeout(() => {
@@ -179,25 +229,25 @@ const remove_toggle = (item, clas, sec) => {
  *  @param item - targeted keyboard character
  *
  * */
-const keys = (ev) => {
-  let char = ev.key;
-  if (char === "Enter") {
-    toggel_button(char.toLowerCase());
+const keys = (event) => {
+  const button = event.key;
+
+  if (button === "Enter") {
+    toggel_button(button.toLowerCase());
     check_word(lucky_word);
-  } else if (char === "Backspace") {
+  } else if (button === "Backspace") {
     backspace(guess_words[line]);
-    toggel_button(char.toLowerCase());
-  } else keyboard(char);
+    toggel_button(button.toLowerCase());
+  } else keyboard(button);
 };
 
 /**
  *  Removing a letter from user guessed word
- *  @param data - [array of boxes per line]
- *
+ *  @param letters - [array of boxes per line]
  * */
-const backspace = (data) => {
-  if (data.length <= 5 && data.length > 0) {
-    data.splice(-1);
+const backspace = (letters) => {
+  if (letters.length <= 5 && letters.length > 0) {
+    letters.splice(-1);
     boxes[line].children[box - 1].classList.toggle("border");
     boxes[line].children[box - 1].innerHTML = "";
     box--;
@@ -206,63 +256,24 @@ const backspace = (data) => {
 
 // Adding keyboard event to document body to handle all keys pressed on keyboard.
 const body = document.body;
-body.removeEventListener("keydown", keys);
-
-const defaultTime = 0;
+body.addEventListener("keydown", keys);
 
 window.onload = () => {
+  loader.classList.toggle("hide");
   setTimeout(() => loader.classList.toggle("hide"), 5000);
-
-  if (checkStatus()) {
-    loader.classList.toggle("hide");
-    body.addEventListener("keydown", keys);
-  }
 };
 
-function storage(data) {
-  localStorage.setItem("status", `${JSON.stringify(data)}`);
+function gameOver(word, letters) {
+  if (word === letters.join("")) {
+    loader.classList.toggle("hide");
+    popupMsg(popup_values.win.icon, popup_values.win.msg);
+  }
 }
 
-function curDate() {
-  const date = new Date();
-  const month = date.getMonth();
-  const day = date.getDay();
-
-  return { month, day, chances };
-}
-
-function checkStatus() {
-  if (!localStorage.getItem("status")) storage(curDate());
+function popupMsg(icon, msg) {
   const popup = loader.querySelector(".popup");
   const spinner = loader.querySelector(".spinner");
-
-  const prevDate = JSON.parse(localStorage.getItem("status"));
-  const { month, day } = curDate();
-
-  if (day > prevDate.day) {
-    chances = 6;
-    return true;
-  } else if (prevDate.chances === 0) {
-    popup.innerHTML = `<h5>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-6 h-6"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-    Please come back tomorrow to play
-  </h5>`;
-    popup.classList.toggle("hide");
-    spinner.classList.toggle("hide");
-  } else {
-    return true;
-  }
+  popup.innerHTML = `<h5>${icon}${msg}</h5>`;
+  popup.classList.toggle("hide");
+  spinner.classList.toggle("hide");
 }
