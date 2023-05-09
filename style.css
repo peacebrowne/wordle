@@ -7,7 +7,7 @@
 }
 .loader {
   padding: 2rem;
-  background-color: #000000b4;
+  background-color: #000000ce;
   height: 100vh;
   width: 100%;
   position: absolute;
@@ -17,36 +17,108 @@
 .spinner,
 .popup {
   padding: 2rem;
-  /* background-color: #ffff; */
   height: 100%;
   display: flex;
   justify-content: center;
   place-items: center;
 }
 
-.popup h5 {
+.popup {
+  flex-direction: column;
+}
+
+.popup span {
   display: flex;
   flex-direction: column;
   place-items: center;
   background-color: white;
-  padding: 1rem;
-  box-shadow: 3.4px 3.4px 2.7px rgba(0, 0, 0, 0.022);
+  padding: 2rem 5rem;
+  filter: drop-shadow(0.4px 0.4px 2.7px #6aaa64);
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
 }
+
+.popup button {
+  background-color: #6aaa64;
+  color: white;
+}
+
 svg {
   width: 100px;
   stroke: #6aaa64;
 }
 
-.spinner::before {
-  content: "";
-  width: 50px;
-  height: 50px;
-  background-color: #6aaa64;
-  border-radius: 50%;
-  border: 1rem solid white;
-  border-bottom: 1rem solid #787c7e;
-  border-top: 1rem solid #c9b458;
-  animation: loader 1s ease-in-out 0s infinite;
+.first-letter {
+  opacity: 0;
+  animation: bounce 2s 0s forwards;
+}
+
+.second-letter {
+  opacity: 0;
+  animation: bounce 2s 1s forwards;
+}
+
+.third-letter {
+  opacity: 0;
+  animation: bounce 2s 1.5s forwards;
+}
+
+.forth-letter {
+  opacity: 0;
+  animation: bounce 2s 2s forwards;
+}
+
+.fifth-letter {
+  opacity: 0;
+  animation: bounce 2s 2.5s forwards;
+}
+
+.six-letter {
+  opacity: 0;
+  animation: bounce 2s 3s forwards;
+}
+
+.spinner-letter {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-400px);
+    animation-timing-function: ease-in;
+    /* opacity: 1; */
+  }
+  38% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    transform: translateY(-65px);
+    animation-timing-function: ease-in;
+  }
+  72% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  81% {
+    transform: translateY(-28px);
+    animation-timing-function: ease-in;
+  }
+  90% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  95% {
+    transform: translateY(-8px);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
 }
 
 @keyframes loader {
@@ -106,7 +178,7 @@ main {
   text-transform: capitalize;
 }
 
-.delete {
+.backspace {
   font-weight: 700;
 }
 
@@ -148,6 +220,18 @@ button {
   background-color: #0973f4;
   color: white;
   font-weight: 600;
+}
+
+.check {
+  color: #6aaa64;
+}
+
+.position {
+  color: #c9b458;
+}
+
+.fail {
+  color: #787c7e;
 }
 
 .correct {

@@ -74,7 +74,6 @@ const random_word = () => {
 };
 
 let lucky_word = random_word();
-console.log(lucky_word);
 
 /**
  * Display each letter user type in the boxes.
@@ -100,6 +99,14 @@ const display = (letter) => {
  * */
 
 const check_word = (word) => {
+  if (!guess_words[line]) {
+    setTimeout(() => {
+      loader.classList.toggle("hide");
+      body.removeEventListener("keydown", keys);
+      popupMsg(popup_values.nextDay.icon, popup_values.nextDay.msg);
+    }, 1000);
+    return;
+  }
   if (guess_words[line].length < 5) {
     add_toggle(boxes[line], "incomplete");
     remove_toggle(boxes[line], "incomplete", 100);
@@ -110,7 +117,6 @@ const check_word = (word) => {
   check_letters(word, letters);
   line++;
   box = 0;
-  gameOver(word, letters);
 };
 
 /**
@@ -237,22 +243,13 @@ function gameOver(word, letters) {
     body.removeEventListener("keydown", keys);
     popupMsg(popup_values.win.icon, popup_values.win.msg);
   }
-  if (!guess_words[line + 1]) {
-    setTimeout(() => {
-      loader.classList.toggle("hide");
-      body.removeEventListener("keydown", keys);
-      popupMsg(popup_values.nextDay.icon, popup_values.nextDay.msg);
-    }, 5000);
-    return;
-  }
 }
 
 function popupMsg(icon, msg) {
   const popup = loader.querySelector(".popup");
   const spinner = loader.querySelector(".spinner");
-  popup.innerHTML = `<span>${icon}${msg}
-  <button class="letter" data-value="">Play Again</button>
-  </span>
+  popup.innerHTML = `<h5>${icon}${msg}</h5>
+  <button class="letter" data-value="m">M</button>
   `;
   popup.classList.toggle("hide");
   spinner.classList.toggle("hide");

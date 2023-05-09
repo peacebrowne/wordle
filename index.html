@@ -9,12 +9,26 @@
   </head>
   <body>
     <section class="loader hide">
-      <div class="spinner"></div>
+      <div class="spinner">
+        <span class="spinner-letter check first-letter">W</span>
+        <span class="spinner-letter position second-letter">o</span>
+        <span class="spinner-letter fail third-letter">r</span>
+        <span class="spinner-letter check forth-letter">d</span>
+        <span class="spinner-letter position fifth-letter">l</span>
+        <span class="spinner-letter fail six-letter">e</span>
+      </div>
       <div class="popup hide"></div>
     </section>
     <main class="">
       <header>
-        <h1>Wordle</h1>
+        <h1>
+          <span class="check">W</span>
+          <span class="position">o</span>
+          <span class="fail">r</span>
+          <span class="check">d</span>
+          <span class="position">l</span>
+          <span class="fail">e</span>
+        </h1>
       </header>
       <section class="boxes">
         <div class="box-item">
@@ -93,7 +107,7 @@
         </div>
 
         <div class="keys-item">
-          <button class="letter enter" data-value="enter">Enter</button>
+          <button class="enter" data-value="enter">Enter</button>
           <button class="letter" data-value="z">Z</button>
           <button class="letter" data-value="x">X</button>
           <button class="letter" data-value="c">C</button>
@@ -101,7 +115,7 @@
           <button class="letter" data-value="b">B</button>
           <button class="letter" data-value="n">N</button>
           <button class="letter" data-value="m">M</button>
-          <button class="letter delete" data-value="backspace">
+          <button class="backspace" data-value="backspace">
             <img src="./svg/delete.svg" />
           </button>
         </div>
