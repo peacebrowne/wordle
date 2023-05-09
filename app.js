@@ -84,7 +84,11 @@ let line = 0;
 let box = 0;
 
 const display = (letter) => {
-  if (guess_words[line].length === 5) return alert("Guesses finish");
+  if (guess_words[line].length === 5) {
+    add_toggle(boxes[line], "incomplete");
+    remove_toggle(boxes[line], "incomplete", 100);
+    return;
+  }
   guess_words[line].push(letter);
   boxes[line].children[box].textContent =
     guess_words[line][guess_words[line].length - 1];
@@ -128,14 +132,17 @@ const check_letters = (word, letters) => {
       if (button !== false) add_toggle(button, "correct-btn");
       add_toggle(boxes[line].children[i], "correct");
       add_toggle(boxes[line].children[i], "border");
+      add_toggle(curClicked, "correct-btn");
     } else if (word.includes(letters[i])) {
       if (button !== false) add_toggle(button, "warning-btn");
       add_toggle(boxes[line].children[i], "warning");
       add_toggle(boxes[line].children[i], "border");
+      add_toggle(curClicked, "warning-btn");
     } else {
       if (button !== false) add_toggle(button, "wrong-btn");
       add_toggle(boxes[line].children[i], "wrong");
       add_toggle(boxes[line].children[i], "border");
+      add_toggle(curClicked, "wrong-btn");
     }
   }
 

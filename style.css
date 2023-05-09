@@ -301,6 +301,7 @@ button {
 
 .incomplete {
   animation: incomplete 0.1s ease-in-out 3;
+  border: 2px solid red !important;
 }
 
 @keyframes incomplete {
