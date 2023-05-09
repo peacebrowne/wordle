@@ -74,7 +74,6 @@ const random_word = () => {
 };
 
 let lucky_word = random_word();
-console.log(lucky_word);
 
 /**
  * Display each letter user type in the boxes.
@@ -250,10 +249,10 @@ function gameOver(word, letters) {
 function popupMsg(icon, msg) {
   const popup = loader.querySelector(".popup");
   const spinner = loader.querySelector(".spinner");
-  popup.innerHTML = `<span>${icon}${msg}
-  <button class="letter" data-value="">Play Again</button>
-  </span>
-  `;
+  popup.firstElementChild.insertAdjacentHTML("afterbegin", `${icon}${msg}`);
   popup.classList.toggle("hide");
   spinner.classList.toggle("hide");
 }
+
+const play_again = document.querySelector(".play-again");
+play_again.addEventListener("click", () => location.reload());
