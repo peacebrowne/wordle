@@ -61,7 +61,6 @@ const popup_values = {
       d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>`,
-    msg: "Game over!! You did not win.",
   },
 };
 
@@ -69,9 +68,9 @@ const popup_values = {
  * Generating random number
  * * @return -random number from the length of words array.
  *  */
-const random_word = () => {
+function random_word() {
   return words[Math.floor(Math.random() * words.length)];
-};
+}
 
 let lucky_word = random_word();
 
@@ -215,7 +214,6 @@ const remove_toggle = (item, clas, sec) =>
  *  @param letters - [array of boxes per line]
  * */
 const backspace = (letters) => {
-  console.log(letters);
   if (letters.length <= 5 && letters.length > 0) {
     letters.splice(-1);
     boxes[line].children[box - 1].classList.toggle("border");
@@ -239,24 +237,28 @@ window.onload = () => {
 
 function gameOver(word, letters) {
   if (word === letters.join("")) {
-    loader.classList.toggle("hide");
     body.removeEventListener("keydown", keys);
-    popupMsg(popup_values.win.icon, popup_values.win.msg);
-  }
-  if (!guess_words[line + 1]) {
     setTimeout(() => {
       loader.classList.toggle("hide");
-      body.removeEventListener("keydown", keys);
-      popupMsg(popup_values.nextDay.icon, popup_values.nextDay.msg);
-    }, 5000);
-    return;
+      popupMsg(popup_values.win.icon, popup_values.win.msg);
+    }, 3000);
+  }
+  if (!guess_words[line + 1]) {
+    body.removeEventListener("keydown", keys);
+    setTimeout(() => {
+      loader.classList.toggle("hide");
+      popupMsg(popup_values.nextDay.icon, `Lucky Word is:  ${lucky_word}`);
+    }, 3000);
   }
 }
 
 function popupMsg(icon, msg) {
   const popup = loader.querySelector(".popup");
   const spinner = loader.querySelector(".spinner");
-  popup.firstElementChild.insertAdjacentHTML("afterbegin", `${icon}${msg}`);
+  popup.firstElementChild.insertAdjacentHTML(
+    "afterbegin",
+    `${icon} <h5>${msg}</h5>`
+  );
   popup.classList.toggle("hide");
   spinner.classList.toggle("hide");
 }

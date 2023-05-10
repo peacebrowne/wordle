@@ -39,6 +39,10 @@
   text-align: center;
 }
 
+.popup span h5 {
+  padding: 1rem;
+}
+
 .popup button {
   background-color: #6aaa64;
   color: white;
