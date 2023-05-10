@@ -161,9 +161,9 @@ const btn_toggle = (btn) => {
  *
  * */
 const keys = (event) => {
-  const letter = !event.target.dataset.value
-    ? event.key.toLowerCase()
-    : event.target.dataset.value.toLowerCase();
+  let letter = !event.key
+    ? event.target.dataset.value.toLowerCase()
+    : event.key.toLowerCase();
 
   if (letter === "letter") display(letter);
   if (letter === "enter") check_word(lucky_word);
@@ -216,6 +216,7 @@ const remove_toggle = (item, clas, sec) =>
  *  @param letters - [array of boxes per line]
  * */
 const backspace = (letters) => {
+  console.log(letters);
   if (letters.length <= 5 && letters.length > 0) {
     letters.splice(-1);
     boxes[line].children[box - 1].classList.toggle("border");
