@@ -113,7 +113,6 @@ const check_word = (word) => {
   check_letters(word, letters);
   line++;
   box = 0;
-  gameOver(word, letters);
 };
 
 /**
