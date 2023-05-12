@@ -73,6 +73,7 @@ function random_word() {
 }
 
 let lucky_word = random_word();
+console.log(lucky_word);
 
 /**
  * Display each letter user type in the boxes.
@@ -242,8 +243,7 @@ function gameOver(word, letters) {
       loader.classList.toggle("hide");
       popupMsg(popup_values.win.icon, popup_values.win.msg);
     }, 3000);
-  }
-  if (!guess_words[line + 1]) {
+  } else if (!guess_words[line + 1]) {
     body.removeEventListener("keydown", keys);
     setTimeout(() => {
       loader.classList.toggle("hide");
